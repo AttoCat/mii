@@ -3,7 +3,9 @@ import discord
 import os
 import launcher
 
+
 class Room(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -45,7 +47,10 @@ class Room(commands.Cog):
         async def new_room():
             named = f"{ctx.author.display_name}の部屋"
             new_room = await cat_room.create_text_channel(name=named)
-            await new_room.set_permissions(creator, manage_messages=True, manage_channels=True)
+            await new_room.set_permissions(
+                creator, manage_messages=True,
+                manage_channels=True
+            )
             await ctx.send(
                 f"{ctx.author.mention} {new_room.mention} を作成しました。"
             )
@@ -65,7 +70,11 @@ class Room(commands.Cog):
             await new_room()
 
         for channel in ctx.guild.channels:
-            if ((channel.category != cat_room and channel.category != cat_room_archive)
+            if (
+                (
+                    channel.category != cat_room
+                    and channel.category != cat_room_archive
+                )
                     or (channel.id != user['room_id'])):
                 continue
 
@@ -82,7 +91,11 @@ class Room(commands.Cog):
                 await channel.edit(category=cat_room)
                 await channel.set_permissions(role_archive, overwrite=None)
                 await channel.set_permissions(role_member, read_messages=True)
-                await channel.set_permissions(creator, manage_messages=True, manage_channels=True)
+                await channel.set_permissions(
+                    creator,
+                    manage_messages=True,
+                    manage_channels=True
+                )
                 await ctx.send(
                     f"{ctx.author.mention} {channel.mention} をアーカイブから戻しました。"
                 )

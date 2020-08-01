@@ -10,7 +10,7 @@ class PurgeCog(commands.Cog):
         """!purge <number> で指定された数のメッセージを一括削除します。"""
         channel = ctx.channel
         if not ctx.author.permissions_in(channel).manage_messages:
-            await channel.send(f"メッセージ管理の権限がありません。")
+            await channel.send("メッセージ管理の権限がありません。")
             return
         if num == "all":
             await channel.purge(limit=None)
@@ -18,9 +18,9 @@ class PurgeCog(commands.Cog):
             return
         try:
             num = int(num)
-        except:
+        except Exception:
             await channel.send(
-                f"不正な引数です。削除するメッセージ数か、全て削除する場合はallを入力してください。"
+                "不正な引数です。削除するメッセージ数か、全て削除する場合はallを入力してください。"
             )
             return
         await channel.purge(limit=num)

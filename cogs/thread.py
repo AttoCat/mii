@@ -17,8 +17,11 @@ class ThreadCog(commands.Cog):
             named = message.content
             matched = discord.utils.get(message.guild.channels, name=named)
             if not matched:
-                new_channel = await self.bot.get_channel(launcher.CAT_THREAD).create_text_channel(name=named)
-                await new_channel.edit(topic="thread-author: " + str(message.author.id))
+                new_channel = await self.bot.get_channel(launcher.CAT_THREAD) \
+                    .create_text_channel(name=named)
+                await new_channel.edit(
+                    topic="thread-author: "
+                    + str(message.author.id))
                 await message.channel.send(
                     f"{message.author.mention} {new_channel.mention} を作成しました。"
                 )
@@ -27,17 +30,24 @@ class ThreadCog(commands.Cog):
                     f"{message.author.mention} {matched.mention} はもう作られています。"
                 )
             elif matched.category.id == launcher.CAT_THREAD_ARCHIVE:
-                await matched.edit(category=self.bot.get_channel(launcher.CAT_THREAD))
+                await matched.edit(
+                    category=self.bot.get_channel
+                    (launcher.CAT_THREAD)
+                )
                 role = message.guild.get_role(launcher.ROLE_ARCHIVE)
                 await matched.set_permissions(role, overwrite=None)
                 role = message.guild.get_role(launcher.ROLE_MEMBER)
                 await matched.set_permissions(role, read_messages=True)
-                await matched.edit(topic="thread-author: " + str(message.author.id))
+                await matched.edit(
+                    topic="thread-author: "
+                    + str(message.author.id))
                 await message.channel.send(
-                    f"{message.author.mention} {matched.mention} をアーカイブから戻しました。スレッドの作者は上書きされました。"
+                    f"{message.author.mention} {matched.mention} "
+                    "をアーカイブから戻しました。スレッドの作者は上書きされました。"
                 )
         else:
-            position = self.bot.get_channel(launcher.CH_THREAD_MASTER).position + 1
+            position = self.bot.get_channel(
+                launcher.CH_THREAD_MASTER).position + 1
             await message.channel.edit(position=position)
 
 

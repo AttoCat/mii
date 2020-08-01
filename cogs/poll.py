@@ -7,23 +7,27 @@ class Poll(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def poll(self, ctx, title, *args):
-        """!poll <title> <任意の数の要素(22未満、指定しなければ さんせいorはんたい)> で投票を行います。"""
-        if len(args) > 21:
+    async def poll(self, ctx, title, *choices):
+        """!poll <title> <任意の数の要素(20以下、指定しなければ さんせいorはんたい)> で投票を行います。"""
+        if len(choices) > 20:
+            await ctx.send("要素の最大数は20です！")
+            return
+        if len(title) > 256:
+            await ctx.send("タイトルの文字数が多すぎます！")
             return
         emoji = 0x0001f1e6
         num = 0
         content = ""
         emojis = []
-        if len(args) == 0:
+        if len(choices) == 0:
             emojis += [
                 "<:__sansei:703788213919023104>", "<:__hantai:703788248362647594>"]
         else:
-            for arg in args:
-                reac = chr(emoji + num)
-                content += f"{reac}：{arg}\n"
+            for num, choice in enumerate(choices):
+                reaction = chr(emoji + num)
+                content += f"{reaction}：{choice}\n"
                 num += 1
-                emojis.append(reac)
+                emojis.append(reaction)
         embed = discord.Embed(
             title=title,
             description=content,
