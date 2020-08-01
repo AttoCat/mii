@@ -31,8 +31,9 @@ class ThreadCog(commands.Cog):
                 )
             elif matched.category.id == launcher.CAT_THREAD_ARCHIVE:
                 await matched.edit(
-                    category=self.bot.get_channel
-                    (launcher.CAT_THREAD)
+                    category=self.bot.get_channel(
+                        launcher.CAT_THREAD
+                    )
                 )
                 role = message.guild.get_role(launcher.ROLE_ARCHIVE)
                 await matched.set_permissions(role, overwrite=None)

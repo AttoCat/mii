@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import launcher
 
+
 class CloseCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -33,7 +34,10 @@ class CloseCog(commands.Cog):
         elif ctx.channel.category == cat_thread:
             await ctx.channel.edit(category=cat_thread_archive)
         await ctx.channel.set_permissions(role_member, overwrite=None)
-        await ctx.channel.set_permissions(role_archive, read_messages=True, send_messages=False)
+        await ctx.channel.set_permissions(
+            role_archive,
+            read_messages=True,
+            send_messages=False)
 
 
 def setup(bot):

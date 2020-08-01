@@ -37,7 +37,8 @@ class Rename_chCog(commands.Cog):
             )
 
         if (ctx.channel.id == user['room_id']
-                or ctx.channel.topic == "thread-author: " + str(ctx.author.id)):
+                or ctx.channel.topic == "thread-author: "
+                + str(ctx.author.id)):
             await ctx.channel.edit(name=named)
             await ctx.send(f"{ctx.author.mention} チャンネル名を {named} に上書きしました。")
             return

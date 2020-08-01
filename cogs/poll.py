@@ -21,7 +21,8 @@ class Poll(commands.Cog):
         emojis = []
         if len(choices) == 0:
             emojis += [
-                "<:__sansei:703788213919023104>", "<:__hantai:703788248362647594>"]
+                "<:__sansei:703788213919023104>",
+                "<:__hantai:703788248362647594>"]
         else:
             for num, choice in enumerate(choices):
                 reaction = chr(emoji + num)
